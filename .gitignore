@@ -36,3 +36,7 @@
 .Trashes
 ehthumbs.db
 Thumbs.dbs
+
+# Working Files #
+#################
+*.psd
