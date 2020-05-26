@@ -1,2 +1,2 @@
 language = "cpp"
-run = "cd && cd A00517153ProjectPOO/Files && g++ main.cpp &&./a.out"
+run = "clear && cd && cd A00517153ProjectPOO/Files && g++ main.cpp &&./a.out"
