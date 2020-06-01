@@ -1,3 +1,4 @@
+
 #ifndef OBJ_SYSTEM_H
 #define OBJ_SYSTEM_H
 
@@ -36,6 +37,14 @@ class obj_system{
     string get_ID(){return (string)(ID);}
     
     string get_name(){return (string)(name);}
+
+    string get_text()const{
+      stringstream aux;
+      aux<<"Name: "<<name<<"\nID: "<<ID<<"\n";
+      return aux.str();
+    };
+    
+    void print_text()const{cout<<get_text()<<endl;}
 
 
 };

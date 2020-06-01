@@ -1,3 +1,4 @@
+
 #ifndef PRODUCT_H
 #define PRODUCT_H
 
@@ -39,11 +40,11 @@ class product : public obj_system{
 
     string get_text()const{
       stringstream aux;
-      aux<<"Name: "<<name<<"\nID: "<<ID<<"\nPrice: $"<<price<<"\nQuantity: "<<quantity<<"\n\n";
+      aux<<"Name: "<<name<<"\nID: "<<ID<<"\nPrice: $"<<price<<"\nQuantity: "<<quantity<<"\n";
       return aux.str();
     };
     
-    void print_text()const{cout<<get_text();}
+    void print_text()const{cout<<get_text()<<endl;}
 };
 
 
