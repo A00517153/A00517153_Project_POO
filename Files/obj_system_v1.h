@@ -7,46 +7,59 @@
 
 using namespace std;
 
+const short int ID_LENGHT = 9;
+
 class obj_system{
   protected:
-    string name;
-    char ID[10]; 
-    int ID_lenght = sizeof(ID)/sizeof(char);
-
+    string name="UNDEFINED";
+    char ID[ID_LENGHT+1]={'0','0','0','0','0','0','0','0','0'}; 
+    
   public:
-    obj_system(){
-      name="UNDEFINED";
-      for (int i = 0; i < ID_lenght; i++) {
-        ID[i]=name[i];
-      };      
-    };
+    obj_system();
+    obj_system(string,string);
 
-    obj_system(string n,string i){
-      name=n;
-      stringstream aux; aux<<i;
-      aux>>ID;
-    }
+    void set_name(string);
+    void set_id(string);
+    void set_data(string,string);
 
-    void set_data(string n,string i){
-      name=n;
-      stringstream aux; aux<<i;
-      aux>>ID;
-    }
-    
-    string get_ID(){return (string)(ID);}
-    
-    string get_name(){return (string)(name);}
+    string get_name() const;
+    string get_id() const;
+    string get_text() const;
 
-    string get_text()const{
-      stringstream aux;
-      aux<<"Name: "<<name<<"\nID: "<<ID<<"\n";
-      return aux.str();
-    };
-    
-    void print_text()const{cout<<get_text()<<endl;}
-
-
+    void print_text() const;
 };
 
+obj_system::obj_system(){
+  // For future changes
+}
+
+obj_system::obj_system(string name_, string id_){
+  set_data(name_,id_);
+}
+
+void obj_system::set_name(string name_){
+  name=name_;
+}
+
+void obj_system::set_id(string id_){
+  id_.copy(ID,ID_LENGHT);
+}
+
+void obj_system::set_data(string name_,string id_){
+  set_name(name_);
+  set_id(id_);
+}
+
+string obj_system::get_name()const{return name;}
+
+string obj_system::get_id()const{return (string)(ID);}
+
+string obj_system::get_text()const{
+  stringstream aux;
+  aux<<"Name: "<<name<<"\nID: "<<ID<<"\n";
+  return aux.str();
+}
+
+void obj_system::print_text()const{cout<<get_text()<<endl;}
 #endif
 

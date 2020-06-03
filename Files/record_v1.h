@@ -20,9 +20,18 @@ class record : public obj_system{
     record();
     record(string);
     record(string,string,string);
+    
     void load_products(string file_name_);
     void print_products()const;
     void save_products(string file_name_)const;
+    
+    bool verify_name_existance(string)const;
+    bool verify_id_existance(string)const;
+    void add_product();
+    void add_product(string,string,string,string);
+
+    void modify_quantity_id(float);
+    void modify_quantity_name(float);
     
 };
 
@@ -87,10 +96,109 @@ void record::save_products(string file)const{
 
   for(int i=0;i<list_size;i++){
     database<<product_list[i].get_text();
+    if(i<list_size-1){database<<endl;}
   }
 
   database.close();
 }
 
+bool record::verify_name_existance(string name_)const{
+  // For future changes
+  bool existance=false;
+  for (int i=0;i<list_size;i++){
+    if(product_list[i].get_name()==name_){
+      existance=true;
+    }
+  }
+  return existance;
+}
 
+bool record::verify_id_existance(string id_)const{
+  // For future changes
+  bool existance=false;
+  for (int i=0;i<list_size;i++){
+    if(product_list[i].get_id()==id_){
+      existance=true;
+    }
+  }
+  return existance;
+}
+
+void record::add_product(){
+  // For future changes
+  bool test=true,run=true;
+  string name_,id_;
+  float quantity_,price_;
+
+  cout<<endl<<endl;
+  cout<<"\nEnter new product's Name: ";
+  getline(cin,name_);
+  cout<<"n: "<<name_<<endl;
+
+  while (verify_name_existance(name_) && run){
+    cout<<"Please enter a product name that has not been used... or enter '-1' to exit: ";
+    getline(cin,name_);
+    
+    run=(name_=="-1")?false:true;
+  }
+
+  if(run){
+    cout<<"\nEnter new product's id code: ";
+    getline(cin,id_);
+  }
+
+  while (verify_id_existance(id_) && run){
+    cout<<"Please enter an identification code that has not been used... or enter '-1' to exit: ";
+    getline(cin,id_);
+    run=(id_=="-1")?false:true;
+  }
+
+  if(run){
+    cout<<"\nEnter new product's amount: ";
+    cin>>quantity_;
+  }
+
+  while (quantity_<0 && run){
+    cout<<"Please enter a nonnegative real number for product's amount... or enter '-1' to exit: ";
+    cin>>quantity_;
+    run=(quantity_==-1)?false:true;
+  }
+
+  if(run){
+    cout<<"\nEnter new product's price_: ";
+    cin>>price_;
+  }
+
+  while (price_<0 && run){
+    cout<<"Please enter a nonnegative real number for product's price... or enter '-1' to exit: ";
+    cin>>price_;
+    run=(price_==((float)(-1)))?false:true;
+  }
+  if(run){
+    add_product(name_,id_,to_string(price_),to_string(quantity_));
+  }
+}
+
+void record::add_product(string name_,string id_, string price_, string quantity_){
+  if ( !( verify_name_existance(name_) || verify_id_existance(id_) ) ){
+    list_size++;
+    product *aux_pl=new product[list_size];
+    for (int i=0;i<(list_size-1);i++){
+      aux_pl[i]=product_list[i];
+    }
+    product_list=aux_pl;
+    aux_pl=NULL;
+    product_list[list_size-1]=product(name_,id_,price_,quantity_);
+    
+  }else{
+    if (verify_id_existance(id_)){
+      if (verify_name_existance(name_)){
+        cout<<"This exact product already exist in the database";
+      }
+      cout<<"This id code already exist, try another..."<<endl;
+    }else{
+      cout<<"This product name already exist, try another..."<<endl;
+    }
+  }
+}
 #endif

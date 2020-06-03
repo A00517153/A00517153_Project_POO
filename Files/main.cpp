@@ -12,6 +12,7 @@ int main(){
   //system("clear");
   
   record r1(datafile_input_name);
+  //r1.add_product("obj1","asdfg","1","2");
   r1.save_products(datafile_output_name);
   cout<<"FINISH"<<endl;
   return 0;

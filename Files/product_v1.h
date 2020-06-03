@@ -12,41 +12,66 @@ using namespace std;
 
 class product : public obj_system{
   protected:
-    float price,quantity,quantity_sold;
+    float price=0,quantity=0;
   public:
-    product():obj_system(){
-      price=0.00;
-      quantity=0.00;
-    };
+    product();
+    product(string,string,string,string);
 
-    product(string n,string i,string p,string q):obj_system(n,i){
-      stringstream aux; aux<<p;
-      aux>>price;
-      stringstream aux2; aux2<<q;
-      aux2>>quantity;
-    }
+    void set_price(string);
+    void set_quantity(string);
+    void set_data(string,string,string,string);
 
-    void set_data(string n,string i,string p,string q){
-      obj_system::set_data(n,i);
-      stringstream aux; aux<<p;
-      aux>>price;
-      stringstream aux2; aux2<<q;
-      aux2>>quantity;
-    }
+    float get_price() const;
+    float get_quantity() const;
+    string get_text() const;
 
-    float get_price()const{return (float)(price);}
+    void print_text() const;
 
-    float get_quantity()const{return (float)(quantity);}
-
-    string get_text()const{
-      stringstream aux;
-      aux<<"Name: "<<name<<"\nID: "<<ID<<"\nPrice: $"<<price<<"\nQuantity: "<<quantity<<"\n";
-      return aux.str();
-    };
-    
-    void print_text()const{cout<<get_text()<<endl;}
+    bool check_avariability(float)const;
+    void modify_quantity(float);
 };
 
+product::product():obj_system(){
+  // For future changes
+}
 
+product::product(string name_,string id_,string price_,string quantity_):obj_system(){
+  set_data(name_,id_,price_, quantity_);
+}
 
+void product::set_price(string price_){
+  price=stof(price_);
+}
+
+void product::set_quantity(string quantity_){
+  quantity=stof(quantity_);
+}
+
+void product::set_data(string name_,string id_,string price_,string quantity_){
+  obj_system::set_data(name_, id_);
+  set_price(price_);
+  set_quantity(quantity_);
+}
+
+float product::get_price() const {return price;}
+
+float product::get_quantity() const {return quantity;}
+
+string product::get_text() const {
+  stringstream aux;
+  aux<<obj_system::get_text()<<"Price: $"<<price<<"\nQuantity: "<<quantity;
+  return aux.str();
+}
+
+void product::print_text() const {cout<<get_text()<<endl<<endl;}
+
+bool product::check_avariability(float amount_)const{
+  return (quantity>amount_)?true:false;
+}
+
+void product::modify_quantity(float modifier_){
+  if(check_avariability(modifier_)){
+    quantity+=modifier_;
+  }
+}
 #endif
