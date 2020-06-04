@@ -6,7 +6,7 @@
 #include <string>
 #include <sstream>
 
-#include "obj_system_v1.h"
+#include "obj_system.h"
 
 using namespace std;
 
@@ -28,7 +28,7 @@ class product : public obj_system{
     void print_text() const;
 
     bool check_avariability(float)const;
-    void modify_quantity(float);
+    bool modify_quantity(float);
 };
 
 product::product():obj_system(){
@@ -66,12 +66,21 @@ string product::get_text() const {
 void product::print_text() const {cout<<get_text()<<endl<<endl;}
 
 bool product::check_avariability(float amount_)const{
+  if (amount_<0){
+    return (quantity>=(-amount_))?true:false;
+  } else {
+    return true; 
+  }
   return (quantity>amount_)?true:false;
 }
 
-void product::modify_quantity(float modifier_){
+bool product::modify_quantity(float modifier_){
   if(check_avariability(modifier_)){
     quantity+=modifier_;
+    return true;
+  }else{
+    cout<<"There is not enough product to do that"<<endl<<endl;
+    return false;
   }
 }
 #endif

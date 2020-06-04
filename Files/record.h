@@ -6,7 +6,7 @@
 #include <string>
 #include <fstream>
 
-#include "product_v1.h"
+#include "product.h"
 
 using namespace std;
 
@@ -27,12 +27,12 @@ class record : public obj_system{
     
     bool verify_name_existance(string)const;
     bool verify_id_existance(string)const;
+    
     void add_product();
     void add_product(string,string,string,string);
 
-    void modify_quantity_id(float);
-    void modify_quantity_name(float);
-    
+    void modify_quantity_id(string,float);
+    void modify_quantity_name(string,float);
 };
 
 record::~record(){
@@ -133,12 +133,11 @@ void record::add_product(){
   cout<<endl<<endl;
   cout<<"\nEnter new product's Name: ";
   getline(cin,name_);
-  cout<<"n: "<<name_<<endl;
+  
 
   while (verify_name_existance(name_) && run){
     cout<<"Please enter a product name that has not been used... or enter '-1' to exit: ";
     getline(cin,name_);
-    
     run=(name_=="-1")?false:true;
   }
 
@@ -191,14 +190,41 @@ void record::add_product(string name_,string id_, string price_, string quantity
     product_list[list_size-1]=product(name_,id_,price_,quantity_);
     
   }else{
-    if (verify_id_existance(id_)){
-      if (verify_name_existance(name_)){
-        cout<<"This exact product already exist in the database";
-      }
-      cout<<"This id code already exist, try another..."<<endl;
+    if (verify_id_existance(id_) && verify_name_existance(name_)){
+      cout<<"This exact product already exist in the database..."<<endl<<endl;
     }else{
-      cout<<"This product name already exist, try another..."<<endl;
+      if (verify_name_existance(name_)){
+        cout<<"This product name already exist, try another..."<<endl<<endl;
+      }else {
+        cout<<"This id code already exist, try another..."<<endl<<endl;
+      }
     }
   }
 }
+
+void record::modify_quantity_id(string id_,float modifier_){
+  if(verify_id_existance(id_)){
+    for(int i =0;i<list_size;i++){
+      if(product_list[i].get_id()==id_){
+        product_list[i].modify_quantity(modifier_);
+      }
+    }
+  }else{
+    cout<<"There isn't a product with such id code..."<<endl<<endl;
+  }
+}
+
+
+void record::modify_quantity_name(string name_,float modifier_){
+  if(verify_name_existance(name_)){
+    for(int i =0;i<list_size;i++){
+      if(product_list[i].get_name()==name_){
+        product_list[i].modify_quantity(modifier_);
+      }
+    }
+  }else{
+    cout<<"There isn't a product with such name..."<<endl<<endl;
+  }
+}
+
 #endif
