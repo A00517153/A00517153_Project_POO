@@ -1,21 +1,33 @@
 #include <iostream>
 #include <string>
+#include <unistd.h>
 
-#include "record.h"
+#include "bill.h"
 
 using namespace std;
-const string datafile_input_name="databasefile.txt";
-const string datafile_output_name="databasefile.txt";
-const string datafile_output_ticket="ticket.txt";
+
+const string datafile="save.csv";
+const string lastticket="./TicketData/ticket.csv";
+const string historytickets="./TicketData/history.csv";
+
+enum recordType {RECORD,STORAGE,BILL};
+
 
 
 int main(){
-  //system("clear");
-  record r1(datafile_input_name);
-  r1.add_product("Test Object 1","Undefined","9.99","6.9");
-  r1.modify_quantity_name("Test Object 1", 10);
-  r1.save_products(datafile_output_name);
-  r1.print_products();
-  cout<<"FINISH"<<endl;
-  return 0;
+  while(true){
+    break;
+  }
+  storage a("T1");
+  a.import_data(datafile);
+  a.save_data(datafile);
+
+  cout<<a.to_string()<<endl;
+
+  bill billy("WILLIAM SHAKESPEAR");
+  billy.add_product(a, "OBJ1", 3);
+  billy.add_product(a, "OBJ3", 5);
+  billy.add_product(a, "OBJ2", 9);
+
+  billy.save_data(lastticket, historytickets);
 }

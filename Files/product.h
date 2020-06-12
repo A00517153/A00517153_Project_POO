@@ -1,86 +1,68 @@
-
 #ifndef PRODUCT_H
 #define PRODUCT_H
 
-#include <iostream>
-#include <string>
-#include <sstream>
+#include "general.h"
 
-#include "obj_system.h"
+#include <cmath>
+#include <sstream>
 
 using namespace std;
 
-class product : public obj_system{
+class product:public general{
   protected:
-    float price=0,quantity=0;
+    string id;
+    float price,amount;
+
   public:
     product();
-    product(string,string,string,string);
+    product(string,string,float,float);
 
-    void set_price(string);
-    void set_quantity(string);
-    void set_data(string,string,string,string);
+    void set_price(float);
+    void modif_amount(float);
 
+    string get_id() const;
     float get_price() const;
-    float get_quantity() const;
-    string get_text() const;
+    float get_amount() const;
 
-    void print_text() const;
-
-    bool check_avariability(float)const;
-    bool modify_quantity(float);
+    string to_string() const;
+    string get_data() const;
 };
 
-product::product():obj_system(){
-  // For future changes
+
+product::product()
+  :general(),id("00000000000000000"),price(0.0),amount(0.0){}
+
+product::product(string name_, string id_, float price_, float amount_):
+  general(name_),id(id_),price(price_),amount(amount_){}
+
+void product::set_price(float price_){price=price_;}
+
+void product::modif_amount(float amount_){
+  if(amount_>=0 || (amount+amount_)>(-1e-8)){
+    amount+=amount_;
+  } else {
+    cout<<"There's not enough product to do this operation.\n";
+  }
 }
 
-product::product(string name_,string id_,string price_,string quantity_):obj_system(){
-  set_data(name_,id_,price_, quantity_);
-}
+string product::get_id() const{return id;}
+float product::get_price() const{return price;}
+float product::get_amount() const{return amount;};
 
-void product::set_price(string price_){
-  price=stof(price_);
-}
-
-void product::set_quantity(string quantity_){
-  quantity=stof(quantity_);
-}
-
-void product::set_data(string name_,string id_,string price_,string quantity_){
-  obj_system::set_data(name_, id_);
-  set_price(price_);
-  set_quantity(quantity_);
-}
-
-float product::get_price() const {return price;}
-
-float product::get_quantity() const {return quantity;}
-
-string product::get_text() const {
+string product::to_string() const{
   stringstream aux;
-  aux<<obj_system::get_text()<<"Price: $"<<price<<"\nQuantity: "<<quantity;
+  aux<<"\nName: "<<name
+      <<"\nID: "<<id
+      <<"\nPrice: $"<<price
+      <<"\nAmount: "<<amount;
   return aux.str();
 }
 
-void product::print_text() const {cout<<get_text()<<endl<<endl;}
-
-bool product::check_avariability(float amount_)const{
-  if (amount_<0){
-    return (quantity>=(-amount_))?true:false;
-  } else {
-    return true; 
-  }
-  return (quantity>amount_)?true:false;
+string product::get_data() const{
+  stringstream aux;
+  aux<<"\n"<<name<<","<<id<<","<<price<<","<<amount;
+  return aux.str();
 }
 
-bool product::modify_quantity(float modifier_){
-  if(check_avariability(modifier_)){
-    quantity+=modifier_;
-    return true;
-  }else{
-    cout<<"There is not enough product to do that"<<endl<<endl;
-    return false;
-  }
-}
+
 #endif

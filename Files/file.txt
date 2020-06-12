@@ -1,8 +1,0 @@
-Name: OBJECT 1
-ID: UNDEFINED
-Price: $10.5
-Quantity: 69.2
-Name: OBJECT 365
-ID: UNDEFINED
-Price: $150.23
-Quantity: 35.2
