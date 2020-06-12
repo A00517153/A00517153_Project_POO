@@ -28,3 +28,23 @@ Purchased Amount,Item Name,Cost Per Unit
 5,OBJ3,$12.25
 9,OBJ2,$10.98
 ,TOTAL,$217.79
+'----------------
+
+Date,Fri Jun 12 08:36:50 2020
+
+Customer,WILLIAM SHAKESPEAR
+Purchased Amount,Item Name,Cost Per Unit
+3,OBJ1,$19.24
+5,OBJ3,$12.25
+9,OBJ2,$10.98
+,TOTAL,$217.79
+'----------------
+
+Date,Fri Jun 12 21:14:43 2020
+
+Customer,WILLIAM SHAKESPEAR
+Purchased Amount,Item Name,Cost Per Unit
+3,OBJ1,$19.24
+5,OBJ3,$12.25
+9,OBJ2,$10.98
+,TOTAL,$217.79
