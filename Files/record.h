@@ -7,8 +7,8 @@ using namespace std;
 
 class record:public general{
   protected:
-    product *p_list=new product[0];
-    int pl_size=0;
+    product *p_list;
+    int pl_size;
     
   public:
     ~record();
@@ -26,9 +26,9 @@ record::~record(){
   delete[]p_list;p_list=NULL;
 }
 
-record::record():general("NONAME"){}
+record::record():general("NONAME"),p_list(new product[0]),pl_size(0){}
 
-record::record(string name_):general(name_){}
+record::record(string name_):general(name_),p_list(new product[0]),pl_size(0){}
 
 bool record::verif_existance(string data_) const {
   

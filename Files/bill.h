@@ -26,12 +26,12 @@ class bill:public storage{
     void add_product(storage &,string,float);
     void calc_balance();
 
-    float get_balance();
+    float get_balance() const;
 
-    string to_string();
-    string get_data();
+    string to_string() const;
+    string get_data() const;
 
-    void save_data(string,string);
+    void save_data(string,string) const;
 
 };
 
@@ -70,6 +70,7 @@ void bill::add_product(storage &storage_, string data_, float amount_){
       }
     }
   }
+  calc_balance();
 }
 
 void bill::calc_balance(){
@@ -79,12 +80,11 @@ void bill::calc_balance(){
   }
 }
 
-float bill::get_balance(){
-  calc_balance();
+float bill::get_balance() const{
   return balance;
 }
 
-string bill::to_string(){
+string bill::to_string() const{
   stringstream aux;
   aux<<"----------\nCustomer: "<<name;
   for(int i=0;i<pl_size;i++){
@@ -94,7 +94,7 @@ string bill::to_string(){
   return aux.str();
 }
 
-string bill::get_data(){
+string bill::get_data() const{
   stringstream aux;
   aux<<"Date,"<<asctime(get_date())<<endl;
   aux<<"Customer,"<<name;
@@ -107,7 +107,7 @@ string bill::get_data(){
   return aux.str();
 }
 
-void bill::save_data(string ticket_,string ticket_record_){
+void bill::save_data(string ticket_,string ticket_record_) const{
   fstream savefile;
   savefile.open(ticket_,ios::out);
   savefile<<get_data();

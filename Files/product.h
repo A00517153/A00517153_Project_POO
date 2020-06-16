@@ -17,6 +17,7 @@ class product:public general{
     product();
     product(string,string,float,float);
 
+    void set_name(string);
     void set_price(float);
     void modif_amount(float);
 
@@ -34,6 +35,10 @@ product::product()
 
 product::product(string name_, string id_, float price_, float amount_):
   general(name_),id(id_),price(price_),amount(amount_){}
+
+void product::set_name(string name_){
+  name=name_;
+}
 
 void product::set_price(float price_){price=price_;}
 
